@@ -1,0 +1,24 @@
+<Nacos>
+    <EnvDefine>
+        <!-- http://172.16.16.210:80/nacos,http://172.16.16.211:80/nacos,http://172.16.16.212:80/nacos -->
+        <NacosUrls>NACOS_URLS</NacosUrls>
+        <NacosNamespace>NACOS_NAMESPACE</NacosNamespace>
+    </EnvDefine>
+    <Servers>
+        <Endpoint ip="172.16.16.212" port="80" context="/nacos" scheme="http"/>
+    </Servers>
+    <Local>
+        <OfflineMode>false</OfflineMode>
+        <AppName>tokenman</AppName>
+        <NameSpaceID>cdfa659c-b7a4-43f6-8519-03233d060bf2</NameSpaceID>
+        <Timeout>3000</Timeout>
+        <BeatInterval>5000</BeatInterval>
+        <Cache dir="nacos/cache" notLoadAtStart="false"/>
+        <Auth username="" password=""/>
+        <Log dir="nacos/log" rotation="24h" maxAge="3" level="warn"/>
+    </Local>
+    <!--  订阅  -->
+    <Subscribe>
+        <Var group="paas" id="aliNlsAccess" handler="aliNlsAccessHandler"/>
+    </Subscribe>
+</Nacos>
