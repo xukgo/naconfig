@@ -1,4 +1,4 @@
-package nacosConfig
+package naconfig
 
 //type Client struct {
 //}
