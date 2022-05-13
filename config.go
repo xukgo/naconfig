@@ -109,7 +109,7 @@ func (this *ConfRoot) FillWithXml(xmlContents []byte) error {
 
 type EnvironmentDefine struct {
 	NacosUrls      string `xml:"NacosUrls"`
-	NacosNamespace string `xml:"NacosNamespac"`
+	NacosNamespace string `xml:"NacosNamespace"`
 }
 
 type LocalConf struct {
