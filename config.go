@@ -94,7 +94,7 @@ func (this *ConfRoot) FillWithXml(xmlContents []byte) error {
 			}
 		}
 		this.Endpoints = append(this.Endpoints, ServerEndpoint{
-			IP:      u.Host,
+			IP:      getHost(u.Host),
 			Port:    int(port),
 			Context: u.Path,
 			Scheme:  u.Scheme,
@@ -105,6 +105,14 @@ func (this *ConfRoot) FillWithXml(xmlContents []byte) error {
 		this.Local.NameSpaceID = namespace
 	}
 	return nil
+}
+
+func getHost(host string) string {
+	index := strings.Index(host, ":")
+	if index < 0 {
+		return host
+	}
+	return host[:index]
 }
 
 type EnvironmentDefine struct {
