@@ -6,6 +6,7 @@ out/
 *\.tar
 *.exe
 *.log
+*.test
 
 go_build_*
 

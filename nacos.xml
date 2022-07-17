@@ -15,7 +15,7 @@
         <BeatInterval>5000</BeatInterval>
         <Cache dir="nacos/cache" notLoadAtStart="false"/>
         <Auth username="" password=""/>
-        <Log dir="nacos/log" rotation="24h" maxAge="3" level="warn"/>
+        <Log dir="nacos/log" maxAge="3" level="warn"/>
     </Local>
     <!--  订阅  -->
     <Subscribe>

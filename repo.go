@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"sync"
-
-	"github.com/xukgo/gsaber/utils/fileUtil"
 
 	"github.com/xukgo/gsaber/utils/arrayUtil"
 
@@ -109,10 +108,12 @@ func (this *Repo) initParam() error {
 	}
 	conf := this.config
 	procs := runtime.GOMAXPROCS(0)
-	if procs < 4 {
+	if procs > 4 {
 		procs = 4
 	}
 
+	cacheDir, _ := filepath.Abs(conf.Local.CacheConfig.Dir)
+	logDir, _ := filepath.Abs(conf.Local.LogConfig.Dir)
 	// 创建clientConfig
 	clientConfig := constant.ClientConfig{
 		AppName:             conf.Local.AppName,
@@ -121,13 +122,16 @@ func (this *Repo) initParam() error {
 		BeatInterval:        int64(conf.Local.BeatInterval),
 		UpdateThreadNum:     procs,
 		NotLoadCacheAtStart: conf.Local.CacheConfig.NotLoadAtStart,
-		CacheDir:            fileUtil.GetAbsUrl(conf.Local.CacheConfig.Dir), //fileUtil.GetAbsUrl("nacos/cache"),
+		CacheDir:            cacheDir, //fileUtil.GetAbsUrl("nacos/cache"),
 		Username:            conf.Local.Authorization.UserName,
 		Password:            conf.Local.Authorization.Password,
-		LogDir:              fileUtil.GetAbsUrl(conf.Local.LogConfig.Dir), //fileUtil.GetAbsUrl("nacos/log"),
-		RotateTime:          conf.Local.LogConfig.Rotation,                //"24h",
-		MaxAge:              int64(conf.Local.LogConfig.MaxAge),
+		LogDir:              logDir, //fileUtil.GetAbsUrl("nacos/log"),
 		LogLevel:            conf.Local.LogConfig.Level,
+		LogRollingConfig: &constant.ClientLogRollingConfig{
+			MaxAge:    conf.Local.LogConfig.MaxAge,
+			LocalTime: true,
+			Compress:  false,
+		},
 	}
 	if conf.Local.OfflineMode {
 		clientConfig.TimeoutMs = 1

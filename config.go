@@ -140,10 +140,10 @@ type ClientAuthorization struct {
 	Password string `xml:"password,attr"`
 }
 type LocalLog struct {
-	Dir      string `xml:"dir,attr"`
-	Rotation string `xml:"rotation,attr" `
-	MaxAge   int    `xml:"maxAge,attr" `
-	Level    string `xml:"level,attr" `
+	Dir    string `xml:"dir,attr"`
+	Level  string `xml:"level,attr" `
+	MaxAge int    `xml:"maxAge,attr" `
+	//Rotation string `xml:"rotation,attr" `
 }
 
 type ServerEndpoint struct {
@@ -216,9 +216,9 @@ func (this LocalLog) CheckValid() string {
 	if len(this.Dir) == 0 {
 		return "log config dir is empty"
 	}
-	if len(this.Rotation) == 0 {
-		return "log rotation dir is empty"
-	}
+	//if len(this.Rotation) == 0 {
+	//	return "log rotation dir is empty"
+	//}
 	if this.MaxAge < 1 {
 		return "log maxAge invalid"
 	}
